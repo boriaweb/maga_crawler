@@ -59,11 +59,15 @@ def get_report(marca):
         
         for product in products:
             estoque_produto = product['estoque']
-            ruptura = "{:.2f}".format((estoque_produto / total_estoque_marca) * 100)
+            ruptura = 'N/D'
+            
+            if str(estoque_produto).isnumeric() and str(total_estoque_marca).isnumeric():
+                ruptura = "{:.2f}".format((estoque_produto / total_estoque_marca) * 100)
+                ruptura = str(ruptura) + '%'
             
             products_list.append({
                         'nome': product['produto'], 
-                        'ruptura': str(ruptura) + '%',
+                        'ruptura': ruptura,
                         'quantidade': estoque_produto
                     })
     

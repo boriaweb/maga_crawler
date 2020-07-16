@@ -55,4 +55,3 @@ Limpar a base de dados:
 ## TODO
 
 - Checagem de índices do crawler (Maga)
-- Cálculo da taxa de juros dos produtos (Maga)

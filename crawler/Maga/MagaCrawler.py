@@ -4,7 +4,14 @@ from .MagaItem import MagaItem
 
 class MagaCrawler(scrapy.Spider):
     name = 'MagaCrawler'
-    url_maga = 'https://www.magazineluiza.com.br/aquecedor-eletrico/ar-e-ventilacao/s/ar/arae/brand---mondial/'
+
+    base_url = 'https://www.magazineluiza.com.br/'
+    url_categoria ='aquecedor-eletrico/ar-e-ventilacao/s/ar/arae/'
+    url_marca = 'brand---mondial/'
+    #url_marca = ''
+    
+    url_maga = base_url + url_categoria + url_marca 
+
     page = 1
     start_urls = [
         url_maga
@@ -34,7 +41,9 @@ class MagaCrawler(scrapy.Spider):
         p_categoria = self.format_string(variantions['categories'][0]['subcategories'][-1]['name'])
         p_ean = variantions['ean']
         p_marca = self.format_string(page['productData']['brand'])
-        p_preco = page['productData']['price']
+        
+        p_preco = page['productData'].get('price', 'N/D')
+
         p_attributesTypes = page['productData']['attributesTypes']
         p_attributesValues = page['productData']['attributesValues']
         p_attributes = []
@@ -48,9 +57,15 @@ class MagaCrawler(scrapy.Spider):
         
         p_sku = page['product']['idSku']
         p_imagem = page['product']['imageUrl']
-        p_qtd_parcelas = page['productData']['seller']['best_installment_plan']['installment_quantity']
-        p_parcelas = page['productData']['seller']['best_installment_plan']['installment_amount']
-        p_estoque = page['productData']['seller']['stock_count']
+        p_qtd_parcelas = page['productData'].get('seller', {}).get('best_installment_plan', {}).get('installment_quantity', 'N/D')
+        p_parcelas = page['productData'].get('seller', {}).get('best_installment_plan', {}).get('installment_amount', {})
+        
+        # checar se este dado já vem no json, e evitar este cálculo
+        p_taxa_juros = 'N/D'
+        if str(p_preco).isnumeric():
+            p_taxa_juros = (( (float("{:.2f}".format(p_parcelas * p_qtd_parcelas))) - p_preco ) / p_preco) * 100
+
+        p_estoque = page['productData'].get('seller', {}).get('stock_count', 'N/D')
         p_url = response.request.url
 
         maga_item = MagaItem({
@@ -64,9 +79,9 @@ class MagaCrawler(scrapy.Spider):
                 'atributos': p_attributes,
                 'estoque': p_estoque,
                 'preco': p_preco,
-                'parcelas': p_parcelas,
-                'valor_parcela': p_qtd_parcelas,
-                'taxa_juros': '',
+                'parcelas': p_qtd_parcelas,
+                'valor_parcela': p_parcelas,
+                'taxa_juros': p_taxa_juros,
                 'url': p_url,
                 'imagem': p_imagem
             })
