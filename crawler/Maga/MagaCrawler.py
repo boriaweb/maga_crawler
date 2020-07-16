@@ -7,8 +7,10 @@ class MagaCrawler(scrapy.Spider):
 
     base_url = 'https://www.magazineluiza.com.br/'
     url_categoria ='aquecedor-eletrico/ar-e-ventilacao/s/ar/arae/'
-    #url_marca = 'brand---mondial/'
-    url_marca = ''
+    url_marca = 'brand---mondial/'
+    
+    # para teste com outras marcas
+    #url_marca = ''
     
     url_maga = base_url + url_categoria + url_marca 
 
