@@ -39,16 +39,14 @@ def report():
     report = get_report(marca)
 
     return Response(
-        json_util.dumps({
-            'report': report
-            }), 
+        json_util.dumps({'report': report}), 
             mimetype='application/json'
-        )
+    )
 
 @app.route('/clean')
 def clean_db():
     clean_database()
-    
+
     return Response(
         json_util.dumps({'success': True}), 
         mimetype='application/json'

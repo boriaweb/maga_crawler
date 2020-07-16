@@ -36,14 +36,14 @@ Consultar por EAN:
 
 ### Relatório
 
-Relatório unificado:
+Relatório unificado (default: mondial):
 
 - http://localhost:5000/report
 
 
 Filtrar por marca:
 
-- http://localhost:5000/reportw?marca=mondial
+- http://localhost:5000/report?marca=mondial
 
 ### Admin
 
