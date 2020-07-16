@@ -7,8 +7,8 @@ class MagaCrawler(scrapy.Spider):
 
     base_url = 'https://www.magazineluiza.com.br/'
     url_categoria ='aquecedor-eletrico/ar-e-ventilacao/s/ar/arae/'
-    url_marca = 'brand---mondial/'
-    #url_marca = ''
+    #url_marca = 'brand---mondial/'
+    url_marca = ''
     
     url_maga = base_url + url_categoria + url_marca 
 
@@ -97,8 +97,11 @@ class MagaCrawler(scrapy.Spider):
             print(link)
             yield scrapy.Request(link, callback=self.parse_interna)
 
-        page = self.page + 1
-        next_page = self.url_maga + '?page=' + str(page)
+        current_page = int(response.css('a[aria-current]::text').extract()[0])
+        next_page = self.url_maga + '?page=' + str(current_page+1)
+        
+        print('NEXT PAGE ->' + next_page)
+        
 
         if len(links) > 0:
             yield response.follow(next_page, self.parse)
