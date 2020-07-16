@@ -16,20 +16,20 @@ $ docker exec -it maga_crawler_web_1 python crawler/main.py
 
 ## API
 
-https://localhost:5000/
+http://localhost:5000/
 
 Lista de todos os produtos crawleados juntamente com o total.
 
 Filtrar por SKU:
 
-- https://localhost:5000/?sku=abc
+- http://localhost:5000/?sku=abc
 
 Filtrar por EAN:
 
-- https://localhost:5000/?ean=12345
+- http://localhost:5000/?ean=12345
 
 
-https://localhost:5000/clean
+http://localhost:5000/clean
 
 Limpa a base de dados
 
