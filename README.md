@@ -28,3 +28,4 @@ Limpa a base de dados
 
 - Checagem de índices
 - Relatórios (market share e ruptura)
+- Calculo da taca de juros dos produtos
