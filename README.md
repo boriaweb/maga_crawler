@@ -24,4 +24,7 @@ https://localhost:5000/clean
 
 Limpa a base de dados
 
+## TODO
 
+- Checagem de índices
+- Relatórios (market share e ruptura)
