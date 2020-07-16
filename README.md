@@ -1,5 +1,9 @@
-# Maga Crawler
-Crawler para loja online da MagazineLuiza
+# Análise de sortimento para lojas online
+
+Crawler para análise de sortimento de departamentos para lojas online.
+
+Lojas implementadas:
+ - Magazine Luiza
 
 ## Instalação
 
@@ -8,7 +12,7 @@ $ docker-compose build
 $ docker-compose up
 ```
 
-## Inicializando o crawler
+## Inicializando o Crawler
 
 ```
 $ docker exec -it maga_crawler_web_1 python crawler/main.py
@@ -16,25 +20,39 @@ $ docker exec -it maga_crawler_web_1 python crawler/main.py
 
 ## API
 
-http://localhost:5000/
+### Consultas
 
 Lista de todos os produtos crawleados juntamente com o total.
 
-Filtrar por SKU:
+- http://localhost:5000/list
 
-- http://localhost:5000/?sku=abc
+Consultar por SKU:
 
-Filtrar por EAN:
+- http://localhost:5000/list?sku=abc
 
-- http://localhost:5000/?ean=12345
+Consultar por EAN:
+
+- http://localhost:5000/list?ean=12345
+
+### Relatório
+
+Relatório unificado:
+
+- http://localhost:5000/report
 
 
-http://localhost:5000/clean
+Filtrar por marca:
 
-Limpa a base de dados
+- http://localhost:5000/reportw?marca=mondial
+
+### Admin
+
+Limpar a base de dados:
+
+- http://localhost:5000/clean
+
 
 ## TODO
 
-- Checagem de índices
-- Relatórios (market share e ruptura)
-- Calculo da taxa de juros dos produtos
+- Checagem de índices do crawler (Maga)
+- Cálculo da taxa de juros dos produtos (Maga)

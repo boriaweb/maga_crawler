@@ -1,10 +1,13 @@
 web:
     build: .
-    command: python -u app.py
+    command: python -m flask run --host=0.0.0.0
     ports:
       - "5000:5000"
     volumes:
       - .:/maga_crawler
+    environment:
+      FLASK_DEBUG: 1
+      FLASK_APP: ./app.py
     links:
       - db
 db:
